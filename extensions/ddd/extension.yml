@@ -1,0 +1,25 @@
+schema_version: "1.0"
+
+extension:
+  id: ddd
+  name: "DDD Domain Modeling"
+  version: "1.0.0"
+  description: "Generate domain-driven design domain models from a feature specification"
+  author: spec-kit-core
+  repository: https://github.com/github/spec-kit
+  license: MIT
+
+requires:
+  speckit_version: ">=0.2.0"
+
+provides:
+  commands:
+    - name: speckit.ddd.modeling
+      file: commands/speckit.ddd.modeling.md
+      description: "Generate a DDD domain model from the current feature specification"
+
+tags:
+  - "ddd"
+  - "domain-modeling"
+  - "architecture"
+  - "core"
