@@ -3,6 +3,21 @@
   "updated_at": "2026-04-24T00:00:00Z",
   "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/presets/catalog.json",
   "presets": {
+    "ddd": {
+      "name": "DDD Workflow",
+      "id": "ddd",
+      "version": "1.0.0",
+      "description": "Reframe spec and plan artifacts around domain-driven design concepts",
+      "author": "spec-kit-core",
+      "repository": "https://github.com/github/spec-kit",
+      "bundled": true,
+      "tags": [
+        "ddd",
+        "domain-driven-design",
+        "architecture",
+        "workflow"
+      ]
+    },
     "lean": {
       "name": "Lean Workflow",
       "id": "lean",

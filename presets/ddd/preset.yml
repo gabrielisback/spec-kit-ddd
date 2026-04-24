@@ -1,0 +1,33 @@
+schema_version: "1.0"
+
+preset:
+  id: "ddd"
+  name: "DDD Workflow"
+  version: "1.0.0"
+  description: "Reframe spec and plan artifacts around domain-driven design concepts"
+  author: "spec-kit-core"
+  repository: "https://github.com/github/spec-kit"
+  license: "MIT"
+
+requires:
+  speckit_version: ">=0.6.0"
+
+provides:
+  templates:
+    - type: "template"
+      name: "spec-template"
+      file: "templates/spec-template.md"
+      description: "DDD-oriented feature specification template"
+      replaces: "spec-template"
+
+    - type: "template"
+      name: "plan-template"
+      file: "templates/plan-template.md"
+      description: "DDD-oriented implementation plan template"
+      replaces: "plan-template"
+
+tags:
+  - "ddd"
+  - "domain-driven-design"
+  - "architecture"
+  - "workflow"
