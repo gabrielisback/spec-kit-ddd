@@ -5,9 +5,18 @@
 
 **Note**: This template is filled in by the `/speckit.plan` command. In this preset, planning is organized around domain boundaries, business rules, and integration seams before implementation details.
 
+**Architecture Constraint Source**: `specs/architecture.md` (when present, this plan MUST respect it and document any required updates)
+
 ## Summary
 
 [Summarize the feature in domain terms: the business capability, primary bounded context, and core architectural approach]
+
+## Architecture Alignment
+
+- **Architecture baseline**: [`specs/architecture.md` or "none yet"]
+- **Primary bounded context confirmed**: [Context that owns this change]
+- **Context map impact**: [How this feature fits the existing product architecture]
+- **Architecture update required**: [None, or describe the required change to `specs/architecture.md`]
 
 ## Domain Framing
 
@@ -22,6 +31,7 @@
 - **Contexts touched**: [Other contexts that interact with this change]
 - **Relationship pattern**: [Customer/Supplier, Conformist, ACL, Published Language, etc. if relevant]
 - **Boundary protection**: [How the implementation avoids leaking models across contexts]
+- **Architecture constraints applied**: [Specific rules inherited from `specs/architecture.md`]
 
 ### Ubiquitous Language Commitments
 
@@ -94,14 +104,16 @@
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
-├── plan.md              # This file (/speckit.plan command output)
-├── research.md          # Phase 0 output (/speckit.plan command)
-├── domain-model.md      # Optional output from /speckit.ddd.modeling
-├── data-model.md        # Phase 1 output (/speckit.plan command)
-├── quickstart.md        # Phase 1 output (/speckit.plan command)
-├── contracts/           # Phase 1 output (/speckit.plan command)
-└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+specs/
+├── architecture.md       # Product bounded-context architecture baseline
+└── [###-feature]/
+    ├── plan.md           # This file (/speckit.plan command output)
+    ├── research.md       # Phase 0 output (/speckit.plan command)
+    ├── domain-model.md   # Optional output from /speckit.ddd.modeling
+    ├── data-model.md     # Phase 1 output (/speckit.plan command)
+    ├── quickstart.md     # Phase 1 output (/speckit.plan command)
+    ├── contracts/        # Phase 1 output (/speckit.plan command)
+    └── tasks.md          # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
 ### Source Code (repository root)
@@ -138,6 +150,8 @@ tests/
 ```
 
 **Structure Decision**: [Document the actual directory choice and how it reinforces the domain boundaries above]
+
+**Architecture Traceability**: [Explain how the chosen structure preserves the bounded contexts defined in `specs/architecture.md`]
 
 ## Delivery Strategy
 

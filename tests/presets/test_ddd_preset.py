@@ -16,15 +16,20 @@ class TestDDDPresetManifest:
 
         manifest = PresetManifest(PRESET_DIR / "preset.yml")
         assert manifest.id == "ddd"
-        assert manifest.version == "1.0.0"
+        assert manifest.version == "1.1.0"
 
     def test_manifest_templates(self):
-        """Manifest declares spec and plan template overrides."""
+        """Manifest declares DDD template overrides plus architecture template."""
         from specify_cli.presets import PresetManifest
 
         manifest = PresetManifest(PRESET_DIR / "preset.yml")
         names = [template["name"] for template in manifest.templates]
-        assert names == ["spec-template", "plan-template"]
+        assert names == [
+            "spec-template",
+            "plan-template",
+            "tasks-template",
+            "architecture-template",
+        ]
 
     def test_manifest_files_exist(self):
         """All template files referenced in the manifest exist."""
@@ -44,6 +49,7 @@ class TestDDDPresetContent:
         assert "## Domain Context" in content
         assert "Bounded Contexts" in content
         assert "Business Invariants" in content
+        assert "specs/architecture.md" in content
 
     def test_plan_template_is_domain_driven(self):
         """Plan template should include domain realization sections."""
@@ -52,6 +58,21 @@ class TestDDDPresetContent:
         assert "## Domain Model Realization" in content
         assert "## Data & Consistency Strategy" in content
         assert "domain-model.md" in content
+        assert "specs/architecture.md" in content
+
+    def test_tasks_template_tracks_architecture_constraints(self):
+        """Tasks template should mention architecture constraints explicitly."""
+        content = (PRESET_DIR / "templates" / "tasks-template.md").read_text(encoding="utf-8")
+        assert "specs/architecture.md" in content
+        assert "bounded contexts" in content.lower()
+        assert "Architecture Dependencies" in content
+
+    def test_architecture_template_focuses_on_bounded_contexts(self):
+        """Architecture template should scaffold product architecture decisions."""
+        content = (PRESET_DIR / "templates" / "architecture-template.md").read_text(encoding="utf-8")
+        assert "## Bounded Contexts" in content
+        assert "## Context Map" in content
+        assert "## Architecture Constraints for Feature Work" in content
 
 
 class TestDDDPresetInstall:

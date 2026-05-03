@@ -1,11 +1,12 @@
-# DDD Domain Modeling Extension
+# DDD Architecture and Modeling Extension
 
-Generate a domain-driven design domain model from the current feature specification.
+Generate a product-level bounded-context architecture and feature-level domain models for DDD workflows.
 
 ## Overview
 
-This extension adds a single command:
+This extension adds two commands:
 
+- `speckit.ddd.architecture` - designs or updates the product bounded-context architecture in `specs/architecture.md`
 - `speckit.ddd.modeling` - derives a DDD-oriented domain model and writes it to `specs/<feature>/domain-model.md`
 
 The command is intended for teams that want to introduce explicit domain modeling into the normal Spec Kit workflow without changing the core command set.
@@ -19,7 +20,13 @@ specify extension add ddd
 
 ## Usage
 
-Invoke the command from your agent after you have a feature spec:
+Invoke the architecture command when you want a durable product architecture baseline:
+
+```text
+/speckit.ddd.architecture Build the bounded-context architecture for a multi-tenant commerce platform
+```
+
+Invoke the modeling command after you have a feature spec:
 
 ```text
 /speckit.ddd.modeling
@@ -33,15 +40,18 @@ You can also provide extra scope or emphasis:
 
 ## Output
 
-The command creates or updates:
+The commands create or update:
 
+- `specs/architecture.md`
 - `specs/<feature>/domain-model.md`
 
-The generated model covers:
+The generated artifacts cover:
 
+- Product domain landscape and architectural drivers
 - Subdomains
 - Bounded contexts
 - Context relationships
+- Architecture constraints for feature work
 - Ubiquitous language
 - Aggregates, entities, and value objects
 - Domain services

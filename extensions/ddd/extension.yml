@@ -2,9 +2,9 @@ schema_version: "1.0"
 
 extension:
   id: ddd
-  name: "DDD Domain Modeling"
-  version: "1.0.0"
-  description: "Generate domain-driven design domain models from a feature specification"
+  name: "DDD Architecture and Modeling"
+  version: "1.1.0"
+  description: "Design product bounded-context architecture and feature domain models for DDD workflows"
   author: spec-kit-core
   repository: https://github.com/github/spec-kit
   license: MIT
@@ -14,6 +14,9 @@ requires:
 
 provides:
   commands:
+    - name: speckit.ddd.architecture
+      file: commands/speckit.ddd.architecture.md
+      description: "Design or update the product bounded-context architecture in specs/architecture.md"
     - name: speckit.ddd.modeling
       file: commands/speckit.ddd.modeling.md
       description: "Generate a DDD domain model from the current feature specification"

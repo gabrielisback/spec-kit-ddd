@@ -5,6 +5,8 @@
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
 
+**Architecture Baseline**: `specs/architecture.md` (if present, this feature spec MUST align with it and note any required updates)
+
 ## Domain Goal *(mandatory)*
 
 Describe the business outcome this feature enables and why it matters in domain terms.
@@ -18,6 +20,13 @@ Describe the business outcome this feature enables and why it matters in domain 
 
 Document the domain framing before enumerating stories or requirements.
 
+### Architecture Alignment
+
+- **Relevant architecture source**: [`specs/architecture.md` or "none yet"]
+- **Primary bounded context from architecture**: [Context this feature belongs to]
+- **Secondary contexts impacted**: [Neighboring contexts touched by the feature]
+- **Required architecture update**: [None, or describe what must change in `specs/architecture.md`]
+
 ### Subdomain Classification
 
 - **Core / Supporting / Generic**: [Choose one and explain why]
@@ -30,6 +39,7 @@ Document the domain framing before enumerating stories or requirements.
 - **Upstream contexts**: [Contexts this feature depends on]
 - **Downstream contexts**: [Contexts that consume outputs from this feature]
 - **Context boundary notes**: [Key language, ownership, or consistency boundaries]
+- **Architecture constraint references**: [Relevant rules from `specs/architecture.md` that this feature must obey]
 
 ### Ubiquitous Language
 
@@ -168,3 +178,9 @@ Document the domain framing before enumerating stories or requirements.
 - [Assumption about upstream/downstream context behavior]
 - [Assumption about acceptable eventual consistency or timing]
 - [Assumption about what remains out of scope for this feature]
+
+## Architecture Impact
+
+- **Needs architecture review?**: [Yes/No]
+- **Why or why not**: [Explain whether this feature changes bounded contexts, relationships, or architecture constraints]
+- **Follow-up artifact changes**: [`specs/architecture.md`, `domain-model.md`, or none]

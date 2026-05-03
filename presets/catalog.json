@@ -6,8 +6,8 @@
     "ddd": {
       "name": "DDD Workflow",
       "id": "ddd",
-      "version": "1.0.0",
-      "description": "Reframe spec and plan artifacts around domain-driven design concepts",
+      "version": "1.1.0",
+      "description": "Align spec, architecture, plan, and tasks artifacts around DDD bounded-context constraints",
       "author": "spec-kit-core",
       "repository": "https://github.com/github/spec-kit",
       "bundled": true,

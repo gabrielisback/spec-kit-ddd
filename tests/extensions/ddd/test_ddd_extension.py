@@ -16,15 +16,15 @@ class TestDDDExtensionManifest:
 
         manifest = ExtensionManifest(EXT_DIR / "extension.yml")
         assert manifest.id == "ddd"
-        assert manifest.version == "1.0.0"
+        assert manifest.version == "1.1.0"
 
     def test_manifest_commands(self):
-        """Manifest declares the modeling command."""
+        """Manifest declares the architecture and modeling commands."""
         from specify_cli.extensions import ExtensionManifest
 
         manifest = ExtensionManifest(EXT_DIR / "extension.yml")
         names = [command["name"] for command in manifest.commands]
-        assert names == ["speckit.ddd.modeling"]
+        assert names == ["speckit.ddd.architecture", "speckit.ddd.modeling"]
 
     def test_manifest_command_files_exist(self):
         """All command files referenced in the manifest exist."""
@@ -37,6 +37,13 @@ class TestDDDExtensionManifest:
 
 
 class TestDDDExtensionContent:
+    def test_architecture_command_targets_product_architecture_artifact(self):
+        """Command content should direct output to specs/architecture.md."""
+        content = (EXT_DIR / "commands" / "speckit.ddd.architecture.md").read_text(encoding="utf-8")
+        assert "specs/architecture.md" in content
+        assert "bounded contexts" in content.lower()
+        assert ".spec/" in content
+
     def test_modeling_command_targets_domain_model_artifact(self):
         """Command content should direct output to domain-model.md."""
         content = (EXT_DIR / "commands" / "speckit.ddd.modeling.md").read_text(encoding="utf-8")

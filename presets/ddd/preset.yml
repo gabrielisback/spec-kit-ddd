@@ -3,8 +3,8 @@ schema_version: "1.0"
 preset:
   id: "ddd"
   name: "DDD Workflow"
-  version: "1.0.0"
-  description: "Reframe spec and plan artifacts around domain-driven design concepts"
+  version: "1.1.0"
+  description: "Align spec, architecture, plan, and tasks artifacts around DDD bounded-context constraints"
   author: "spec-kit-core"
   repository: "https://github.com/github/spec-kit"
   license: "MIT"
@@ -25,6 +25,17 @@ provides:
       file: "templates/plan-template.md"
       description: "DDD-oriented implementation plan template"
       replaces: "plan-template"
+
+    - type: "template"
+      name: "tasks-template"
+      file: "templates/tasks-template.md"
+      description: "DDD-oriented implementation tasks template"
+      replaces: "tasks-template"
+
+    - type: "template"
+      name: "architecture-template"
+      file: "templates/architecture-template.md"
+      description: "DDD-oriented product architecture template"
 
 tags:
   - "ddd"
