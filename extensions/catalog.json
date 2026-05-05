@@ -8,7 +8,7 @@
       "id": "ddd",
       "version": "1.1.0",
       "description": "Design product bounded-context architecture and feature domain models for DDD workflows",
-      "author": "spec-kit-core",
+      "author": "Gabriel",
       "repository": "https://github.com/github/spec-kit",
       "bundled": true,
       "tags": [
