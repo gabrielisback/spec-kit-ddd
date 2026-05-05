@@ -2,7 +2,6 @@
 
 **Created**: [DATE]  
 **Status**: Draft  
-**Input**: Product description: "$ARGUMENTS"
 
 ## Scope
 
