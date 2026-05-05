@@ -3,21 +3,6 @@
   "updated_at": "2026-04-24T00:00:00Z",
   "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/presets/catalog.json",
   "presets": {
-    "ddd": {
-      "name": "DDD Workflow",
-      "id": "ddd",
-      "version": "1.1.0",
-      "description": "Align spec, architecture, plan, and tasks artifacts around DDD bounded-context constraints",
-      "author": "Gabriel",
-      "repository": "https://github.com/github/spec-kit",
-      "bundled": true,
-      "tags": [
-        "ddd",
-        "domain-driven-design",
-        "architecture",
-        "workflow"
-      ]
-    },
     "lean": {
       "name": "Lean Workflow",
       "id": "lean",

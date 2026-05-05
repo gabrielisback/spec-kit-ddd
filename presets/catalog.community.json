@@ -80,6 +80,33 @@
       "created_at": "2026-04-13T00:00:00Z",
       "updated_at": "2026-04-13T00:00:00Z"
     },
+    "ddd": {
+      "name": "DDD Workflow",
+      "id": "ddd",
+      "version": "1.1.0",
+      "description": "Align spec, architecture, plan, and tasks artifacts to DDD extension",
+      "author": "Gabriel",
+      "repository": "https://github.com/gabrielisback/spec-kit-ddd",
+      "download_url": "https://github.com/gabrielisback/spec-kit-ddd/archive/refs/tags/v1.1.0.zip",
+      "homepage": "https://github.com/gabrielisback/spec-kit-ddd",
+      "documentation": "https://github.com/gabrielisback/spec-kit-ddd/blob/main/presets/ddd/README.md",
+      "license": "MIT",
+      "requires": {
+        "speckit_version": ">=0.6.0"
+      },
+      "provides": {
+        "templates": 4,
+        "commands": 0
+      },
+      "tags": [
+        "ddd",
+        "domain-driven-design",
+        "architecture",
+        "workflow"
+      ],
+      "created_at": "2026-05-05T00:00:00Z",
+      "updated_at": "2026-05-05T00:00:00Z"
+    },
     "explicit-task-dependencies": {
       "name": "Explicit Task Dependencies",
       "id": "explicit-task-dependencies",
