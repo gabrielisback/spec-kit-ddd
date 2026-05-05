@@ -118,38 +118,52 @@ specs/
 
 ### Source Code (repository root)
 
-Document the concrete structure that best preserves bounded contexts and keeps domain logic isolated from transport, persistence, and UI concerns.
+Document the concrete structure that best preserves bounded contexts and keeps domain logic isolated from transport, persistence, and UI concerns. Follow hexagonal (ports & adapters) architecture with **bounded context as the top-level module** — each BC is a self-contained hexagonal unit owning its domain, ports, and adapters.
 
 ```text
 src/
-├── domain/
-│   ├── [bounded-context]/
-│   │   ├── aggregates/
-│   │   ├── entities/
-│   │   ├── value_objects/
-│   │   ├── services/
-│   │   └── events/
-├── application/
-│   ├── commands/
-│   ├── queries/
-│   └── policies/
-├── infrastructure/
-│   ├── persistence/
-│   ├── messaging/
-│   └── integrations/
-└── interfaces/
-    ├── api/
-    ├── cli/
-    └── jobs/
+├── [bounded-context]/               # Each BC is an independent, complete hexagonal unit
+│   ├── domain/                      # Inner core: pure domain logic (zero framework deps)
+│   │   ├── model/                   #   Aggregates, Entities, Value Objects
+│   │   ├── service/                 #   Domain Services
+│   │   ├── event/                   #   Domain Events
+│   │   └── exception/               #   Domain Exceptions
+│   ├── application/                 # Application layer: orchestration, port contracts
+│   │   ├── port/
+│   │   │   ├── inbound/             #   Driving ports: use-case interfaces
+│   │   │   └── outbound/            #   Driven ports: repository / messaging interfaces
+│   │   ├── service/                 #   Application services: use-case implementations
+│   │   ├── command/                 #   Write-model DTOs
+│   │   └── query/                   #   Read-model DTOs, projections
+│   └── adapter/                     # Adapter layer: bridge domain ↔ outside world
+│       ├── inbound/                 #   Driving adapters (primary actors)
+│       │   ├── rest/
+│       │   ├── grpc/
+│       │   ├── cli/
+│       │   └── subscriber/          #   Event / message consumers
+│       └── outbound/                #   Driven adapters (secondary actors)
+│           ├── persistence/
+│           ├── messaging/
+│           ├── client/              #   External API / service clients
+│           └── notification/        #   Email, SMS, push
+├── shared/                          # Shared kernel (cross-BC, no business logic)
+│   ├── kernel/                      #   Shared value objects, interfaces, domain primitives
+│   └── infrastructure/              #   Cross-cutting: logging, config, DI container
+└── bootstrap/                       # Application entrypoint, module wiring
 
 tests/
-├── contract/
-├── integration/
-├── domain/
-└── unit/
+├── [bounded-context]/               # Tests mirror BC structure
+│   ├── unit/
+│   │   ├── domain/                  #   Domain logic (fast, pure in-memory)
+│   │   └── application/             #   Use-case tests (mocked ports)
+│   ├── integration/
+│   │   └── adapter/                 #   Adapter integration (real adapters, test doubles)
+│   └── architecture/                #   Architecture fitness (layer-boundary checks)
+├── integration/                     # Cross-BC integration tests
+└── e2e/                             # End-to-end business journeys
 ```
 
-**Structure Decision**: [Document the actual directory choice and how it reinforces the domain boundaries above]
+**Structure Decision**: [Document the actual directory choice and how the BC-first hexagonal layout reinforces domain boundaries above]
 
 **Architecture Traceability**: [Explain how the chosen structure preserves the bounded contexts defined in `specs/architecture.md`]
 

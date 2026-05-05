@@ -27,6 +27,7 @@ description: "DDD task list template for feature implementation constrained by p
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure and the context boundaries from `specs/architecture.md`
+- **Hexagonal layout**: each bounded context is a top-level module — `src/[bounded-context]/domain/` (core), `src/[bounded-context]/application/port/` (ports), `src/[bounded-context]/adapter/` (adapters)
 
 <!--
   ============================================================================
@@ -95,17 +96,18 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T011 [P] [US1] Contract test for [context boundary / endpoint] in tests/contract/test_[name].py
-- [ ] T012 [P] [US1] Integration test for [cross-context or core journey] in tests/integration/test_[name].py
+- [ ] T011 [P] [US1] Unit test for [domain aggregate / entity] in tests/[bounded-context]/unit/domain/test_[name].py
+- [ ] T012 [P] [US1] Unit test for [application use case] in tests/[bounded-context]/unit/application/test_[name].py
+- [ ] T013 [P] [US1] Integration test for [adapter or cross-context journey] in tests/[bounded-context]/integration/adapter/test_[name].py
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Create [Aggregate / Entity] in src/domain/[bounded-context]/[file].py
-- [ ] T014 [P] [US1] Create [Value Object / Policy] in src/domain/[bounded-context]/[file].py
-- [ ] T015 [US1] Implement [Application Service / Command Handler] in src/application/[file].py
-- [ ] T016 [US1] Implement [ACL / Translator / Integration Adapter] in src/infrastructure/integrations/[file].py
-- [ ] T017 [US1] Implement [endpoint / job / workflow] in src/interfaces/[location]/[file].py
-- [ ] T018 [US1] Verify architecture constraints and terminology remain consistent
+- [ ] T014 [P] [US1] Create [Aggregate / Entity] in src/[bounded-context]/domain/model/[file].py
+- [ ] T015 [P] [US1] Create [Domain Service / Port interface] in src/[bounded-context]/domain/service/[file].py
+- [ ] T016 [US1] Implement [Application Service / Use Case Handler] in src/[bounded-context]/application/service/[file].py
+- [ ] T017 [US1] Implement [Inbound Adapter] in src/[bounded-context]/adapter/inbound/[type]/[file].py
+- [ ] T018 [US1] Implement [Outbound Adapter / ACL] in src/[bounded-context]/adapter/outbound/[type]/[file].py
+- [ ] T019 [US1] Verify architecture constraints and terminology remain consistent
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -121,15 +123,15 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T019 [P] [US2] Contract test for [boundary] in tests/contract/test_[name].py
-- [ ] T020 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T020 [P] [US2] Unit test for [domain logic] in tests/[bounded-context]/unit/domain/test_[name].py
+- [ ] T021 [P] [US2] Integration test for [adapter or user journey] in tests/[bounded-context]/integration/adapter/test_[name].py
 
 ### Implementation for User Story 2
 
-- [ ] T021 [P] [US2] Create [Aggregate / Entity] in src/domain/[bounded-context]/[file].py
-- [ ] T022 [US2] Implement [Service / Policy] in src/application/[file].py
-- [ ] T023 [US2] Implement [endpoint / feature] in src/[location]/[file].py
-- [ ] T024 [US2] Integrate with neighboring context via approved contract or ACL
+- [ ] T022 [P] [US2] Create [Aggregate / Entity] in src/[bounded-context]/domain/model/[file].py
+- [ ] T023 [US2] Implement [Application Service / Port] in src/[bounded-context]/application/service/[file].py
+- [ ] T024 [US2] Implement [Adapter] in src/[bounded-context]/adapter/[inbound|outbound]/[type]/[file].py
+- [ ] T025 [US2] Integrate with neighboring context via approved contract or ACL
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -145,15 +147,15 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T025 [P] [US3] Contract test for [boundary] in tests/contract/test_[name].py
-- [ ] T026 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T026 [P] [US3] Unit test for [domain logic] in tests/[bounded-context]/unit/domain/test_[name].py
+- [ ] T027 [P] [US3] Integration test for [adapter or user journey] in tests/[bounded-context]/integration/adapter/test_[name].py
 
 ### Implementation for User Story 3
 
-- [ ] T027 [P] [US3] Create [Aggregate / Entity] in src/domain/[bounded-context]/[file].py
-- [ ] T028 [US3] Implement [Service] in src/application/[file].py
-- [ ] T029 [US3] Implement [endpoint / feature] in src/[location]/[file].py
-- [ ] T030 [US3] Add any required architecture update note if boundaries changed
+- [ ] T028 [P] [US3] Create [Aggregate / Entity] in src/[bounded-context]/domain/model/[file].py
+- [ ] T029 [US3] Implement [Application Service] in src/[bounded-context]/application/service/[file].py
+- [ ] T030 [US3] Implement [Adapter] in src/[bounded-context]/adapter/[inbound|outbound]/[type]/[file].py
+- [ ] T031 [US3] Add any required architecture update note if boundaries changed
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -170,7 +172,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Update architecture and feature documentation in specs/ and docs/
 - [ ] TXXX Reconcile terminology across code, specs, and architecture artifacts
 - [ ] TXXX Validate cross-context observability, audit, and failure handling
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+- [ ] TXXX [P] Additional unit tests (if requested) in tests/[bounded-context]/unit/
 - [ ] TXXX Security and boundary hardening
 - [ ] TXXX Run quickstart.md validation
 
@@ -200,9 +202,10 @@ Examples of foundational tasks (adjust based on your project):
 ### Within Each User Story
 
 - Tests (if included) MUST be written and FAIL before implementation
-- Domain model changes before application services
-- Application services before interfaces
-- Translation / integration work before cross-context rollout
+- Domain model (aggregates, entities, value objects, domain services) first
+- Application ports (interfaces) before adapters (implementations)
+- Adapter implementations after their port interfaces are defined
+- Translation / ACL work before cross-context rollout
 - Story complete before moving to next priority
 
 ### Parallel Opportunities
@@ -219,12 +222,16 @@ Examples of foundational tasks (adjust based on your project):
 
 ```bash
 # Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [context boundary / endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [cross-context or core journey] in tests/integration/test_[name].py"
+Task: "Architecture fitness test for [context boundary] in tests/[bounded-context]/architecture/test_[name].py"
+Task: "Integration test for [adapter or cross-context journey] in tests/[bounded-context]/integration/adapter/test_[name].py"
 
 # Launch context-local domain work together:
-Task: "Create [Aggregate / Entity] in src/domain/[bounded-context]/[file].py"
-Task: "Create [Value Object / Policy] in src/domain/[bounded-context]/[file].py"
+Task: "Create [Aggregate / Entity] in src/[bounded-context]/domain/model/[file].py"
+Task: "Create [Domain Service / Port interface] in src/[bounded-context]/domain/service/[file].py"
+
+# Launch adapter work together (after ports are defined):
+Task: "Create [inbound adapter] in src/[bounded-context]/adapter/inbound/[type]/[file].py"
+Task: "Create [outbound adapter] in src/[bounded-context]/adapter/outbound/[type]/[file].py"
 ```
 
 ---
